@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  backend_api:
+    container_name: regiquest_backend
+    restart: always
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile
+    volumes:
+      - ./backend:/app
+    ports:
+      - 8000:8000
+    depends_on:
+      - backend_db
+      
+  backend_db:
+    container_name: regiquest_admin_db
+    image: mysql:5.7.22
+    restart: always
+    environment:
+      MYSQL_DATABASE: regiquest_admin
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - .dbdata:/var/lib/mysql
+   
+
+
+
